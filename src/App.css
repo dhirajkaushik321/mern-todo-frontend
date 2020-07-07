@@ -1,0 +1,14 @@
+.pointer:hover{
+  cursor: pointer;
+  color:#FFF;
+}
+@media(max-width: 600px){
+  .landing-page-img{
+    width: 100%;
+  }
+}
+@media(min-width: 600px){
+  .landing-page-img{
+    width: 50%;
+  }
+}
