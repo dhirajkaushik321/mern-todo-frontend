@@ -11,7 +11,7 @@ const Todo = ({id,index,description}) => {
         setDelAnim("animated zoomOut")
         setTimeout (
             ()=>dispatch({type:'REMOVE_TODO',id}),500)
-        const {data}=await axios.delete(`/todo/${id}`,
+        await axios.delete(`/todo/${id}`,
         {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`

@@ -15,7 +15,7 @@ const LandingPage = () => {
                 get productive.Achieve your dream and get ready for the future</p>
             </div>
             <div className="animated zoomIn delay-1s p-5">
-                <img className=" landing-page-img rounded"  src="https://wallpaperaccess.com/full/1489353.jpg"/>
+                <img className=" landing-page-img rounded" alt="landing page" src="https://wallpaperaccess.com/full/1489353.jpg"/>
             </div>
             <div  className="d-flex p-5">
                 <Register/>

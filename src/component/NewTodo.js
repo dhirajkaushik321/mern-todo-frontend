@@ -27,7 +27,7 @@ const NewTodo = ({ op, initVal, setIsEdit, id }) => {
             dispatch({ type, description, id })
             op === 'edit' ? setIsEdit(false) : setDescription('')
         }
-        const {data}=await  axios({
+        await  axios({
             method,
             url,
             data: {

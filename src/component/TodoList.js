@@ -26,7 +26,7 @@ const TodoList = () => {
      }catch(err){
          console.log(err)
      }
-    }, [])
+    },[dispatch])
     
     return (
         isLoading
