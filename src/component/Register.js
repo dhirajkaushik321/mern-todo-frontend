@@ -12,7 +12,7 @@ const Register = () => {
   const onSubmitHandler = async e => {
     setIsLoading(true)
     try{
-      const res=await axios.post('/user/signup',{
+      const res=await axios.post('https://mern-todo-backend17502.herokuapp.com/api/user/signup',{
         name,email,password
       },
       {

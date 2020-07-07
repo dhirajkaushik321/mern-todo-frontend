@@ -9,13 +9,13 @@ const NewTodo = ({ op, initVal, setIsEdit, id }) => {
     let btnText = "Add"
     let type = "ADD_TODO"
     let method='post'
-    let url='/todo'
+    let url='https://mern-todo-backend17502.herokuapp.com/api/todo'
     if (op === 'edit') {
         placeholder = ""
         btnText = "Update"
         type = "EDIT_TODO"
         method='patch'
-        url=`/todo/${id}`
+        url=`https://mern-todo-backend17502.herokuapp.com/api/todo/${id}`
     }
     const [description, setDescription] = useState(initVal)
     const [isAdded,setIsAdded] = useState(false)

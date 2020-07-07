@@ -10,7 +10,7 @@ const TodoList = () => {
     useEffect(() => {
      try{
         const fetchData = async () => {
-            const { data } = await axios.get('/todo',
+            const { data } = await axios.get('https://mern-todo-backend17502.herokuapp.com/api/todo',
                 {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`

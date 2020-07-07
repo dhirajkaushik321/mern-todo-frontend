@@ -7,7 +7,7 @@ const Login = () => {
   let history=useHistory()
   const onSubmitHandler =async e=>{
     try{
-      const {data}=await axios.post('/user/login',{
+      const {data}=await axios.post('https://mern-todo-backend17502.herokuapp.com/api/user/login',{
         email,password
       },
       {

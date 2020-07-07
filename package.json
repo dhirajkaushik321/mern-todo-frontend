@@ -32,6 +32,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy":"https://mern-todo-backend17502.herokuapp.com/api"
+  }
 }
