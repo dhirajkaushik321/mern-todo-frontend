@@ -4,6 +4,7 @@ import { TodoContext } from '../context/TodoContext'
 import NewTodo from './NewTodo'
 const colors=['primary', 'secondary', 'success','warning','info','danger','light','dark']
 const Todo = ({id,index,description}) => {
+    console.log(colors[index%8])
     const [isEdit,setIsEdit]=useState(false)
     const [delAnim,setDelAnim]=useState("")
     const {dispatch}=useContext(TodoContext)
@@ -25,13 +26,13 @@ const Todo = ({id,index,description}) => {
          <NewTodo op="edit" initVal={description} setIsEdit={setIsEdit} id={id}/>
          </div>
         :
-        <div className={`list-group-item list-group-item-${colors[index%8]} d-flex justify-content-between flex-wrap p-3 m-1 ${delAnim}`}>
+        <div className={`list-group-item list-group-y item-${colors[index%8]} d-flex justify-content-between flex-wrap p-3 m-1 ${delAnim}`}>
             <div className="lead">
             {description}
         </div>
         <div className="ml-2 flex-wrap">
         <i onClick={e=>setIsEdit(true)}  className="pointer fas fa-edit fa-2x"></i>
-        <i  onClick={e=>deleteHandler(e)} className="ml-2 pointer fas fa-trash fa-2x"></i>
+        <i  onClick={e=>deleteHandler(e)} className="pointer ml-2 fas fa-trash fa-2x"></i>
         </div>
         </div>
     )

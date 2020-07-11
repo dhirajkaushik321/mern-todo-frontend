@@ -2,7 +2,7 @@ import React from 'react'
 
 const Alert = ({type,message}) => {
     return (
-      <div className={`alert alert-${type} alert-dismissible fade show`} role="alert">
+      <div className={`alert alert-${type} alert-dismissible fade show p-4 `} role="alert">
       {message}
       <button
         type="button"

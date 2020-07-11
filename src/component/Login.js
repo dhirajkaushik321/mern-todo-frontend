@@ -1,25 +1,32 @@
-import React,{useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import Loading from './Loading'
 import axios from 'axios'
+import Alert from './Alert'
 const Login = () => {
-  const [email,setEmail]=useState('')
-  const [password,setPassword]=useState('')
-  let history=useHistory()
-  const onSubmitHandler =async e=>{
-    try{
-      const {data}=await axios.post('https://mern-todo-backend17502.herokuapp.com/api/user/login',{
-        email,password
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isLoading,setIsLoading] = useState(false)
+  const [error,setError] = useState(null)
+  let history = useHistory()
+  const onSubmitHandler = async e => {
+    try {
+      setIsLoading(true)
+      const res = await axios.post('https://mern-todo-backend17502.herokuapp.com/api/user/login', {
+        email, password
       },
-      {
-        headers: { 'Content-Type': 'application/json'}
-      })
-      console.log(data)
-      localStorage.setItem("token",data.token)
-      localStorage.setItem("name",data.name)
+        {
+          headers: { 'Content-Type': 'application/json' }
+        })
+      const {token,name,id}=res.data
+      localStorage.setItem("token", token)
+      localStorage.setItem("name",name)
+      localStorage.setItem("id",id)
       history.push("/dashboard")
 
-    }catch(err){
-      return console.log(err)
+    } catch (err) {
+      setIsLoading(false)
+      return setError(err.response.data.message)
     }
   }
   return (
@@ -30,18 +37,18 @@ const Login = () => {
         tabIndex={-1}
         role="dialog"
         aria-labelledby="myModalLabel"
-        aria-hidden="true"
-      >
+        aria-hidden="true">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
+          {isLoading && <Loading msg={"Logging you in..."}/>}
+          {error && <Alert type="danger" message={error}/>}
             <div className="modal-header text-center">
               <h4 className="modal-title w-100 font-weight-bold">Sign in</h4>
               <button
                 type="button"
                 className="close"
                 data-dismiss="modal"
-                aria-label="Close"
-              >
+                aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
@@ -53,13 +60,11 @@ const Login = () => {
                   id="defaultForm-email"
                   className="form-control validate"
                   value={email}
-                  onChange={e=>setEmail(e.target.value)}
-                />
+                  onChange={e => setEmail(e.target.value)} />
                 <label
                   data-error="wrong"
                   data-success="right"
-                  htmlFor="defaultForm-email"
-                >
+                  htmlFor="defaultForm-email" >
                   Your email
             </label>
               </div>
@@ -70,19 +75,17 @@ const Login = () => {
                   id="defaultForm-pass"
                   className="form-control validate"
                   value={password}
-                  onChange={e=>setPassword(e.target.value)}
-                />
+                  onChange={e => setPassword(e.target.value)} />
                 <label
                   data-error="wrong"
                   data-success="right"
-                  htmlFor="defaultForm-pass"
-                >
+                  htmlFor="defaultForm-pass" >
                   Your password
             </label>
               </div>
             </div>
             <div className="modal-footer d-flex justify-content-center">
-              <button  onClick={onSubmitHandler} className="btn btn-default">Login</button>
+              <button onClick={onSubmitHandler} className="btn btn-default">Login</button>
             </div>
           </div>
         </div>
@@ -92,8 +95,7 @@ const Login = () => {
           href
           className="btn btn-lg btn-outline-dark btn-rounded mb-4"
           data-toggle="modal"
-          data-target="#modalLoginForm"
-        >
+          data-target="#modalLoginForm">
           Login
     </a>
       </div>

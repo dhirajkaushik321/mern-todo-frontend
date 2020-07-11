@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
 import Loading from './Loading'
+import Alert from './Alert'
 
 const Register = () => {
   let history=useHistory()
@@ -9,6 +10,8 @@ const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading,setIsLoading] = useState(false)
+  const [error,setError] = useState(null)
+  console.log(error)
   const onSubmitHandler = async e => {
     setIsLoading(true)
     try{
@@ -20,22 +23,25 @@ const Register = () => {
       })
       
       
-      const {data}=res
-      console.log(data)
+      const {token,name:userName,id}=res.data
       setIsLoading(false)
-      localStorage.setItem("token",data.token)
-      localStorage.setItem("name",data.name)
+      localStorage.setItem("token",token)
+      localStorage.setItem("name",userName)
+      localStorage.setItem('id',id)
       setName('')
       setEmail('')
       setPassword('')
       history.push('/dashboard')
 
     }catch(err){
+      setError(err.response.data.message)
+      setIsLoading(false)
       return console.log(err.message)
     }
     
   }
   return (
+    <>
     <div>
       <div
         className="modal fade"
@@ -47,8 +53,9 @@ const Register = () => {
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
+          { error && <Alert type="danger" message={error}/>}
+          {isLoading && <Loading msg={"Please wait..."}/>}
             <div className="modal-header text-center">
-            {isLoading && <Loading/>}
               <h4 className="modal-title w-100 font-weight-bold">Sign up</h4>
               <button
                 type="button"
@@ -129,6 +136,7 @@ const Register = () => {
     </a>
       </div>
     </div>
+    </>
   )
 }
 
